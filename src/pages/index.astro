@@ -1,0 +1,76 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="A head start for your next Go service"
+  description="Go42 brings application code, development workflows, and project documentation together in a Go service blueprint."
+>
+  <section class="hero container">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> THE GO SERVICE BLUEPRINT</p>
+      <h1>A head start for<br />your next <span>Go service.</span></h1>
+      <p class="hero-description">Application code, development workflows, and project context. A considered starting point you can make your own.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/docs/adopting-go42/">Get started <span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="https://github.com/go42-dev/go42">Explore the code <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="hero-footnote">Built with Go. Made for people and AI.</p>
+    </div>
+
+    <div class="blueprint" aria-label="An example application contains code, documentation, and development workflows">
+      <div class="blueprint-bar"><span class="window-dots" aria-hidden="true">● ● ●</span><span>your-service /</span><span class="file-label">BLUEPRINT</span></div>
+      <div class="blueprint-body">
+        <p class="terminal-comment">// A place for the whole project.</p>
+        <div class="file-tree">
+          <div class="tree-row"><span class="tree-branch" aria-hidden="true">├─</span><code>cmd/app/</code><span>the entrypoint</span></div>
+          <div class="tree-row"><span class="tree-branch" aria-hidden="true">├─</span><code>internal/</code><span>your application</span></div>
+          <div class="tree-row context-row"><span class="tree-branch" aria-hidden="true">├─</span><code>docs/</code><span>the context</span></div>
+          <div class="tree-row"><span class="tree-branch" aria-hidden="true">└─</span><code>Makefile</code><span>the workflow</span></div>
+        </div>
+        <div class="terminal-command"><span aria-hidden="true">$</span> make setup</div>
+        <div class="terminal-command"><span aria-hidden="true">$</span> make run<span class="cursor" aria-hidden="true"></span></div>
+      </div>
+      <div class="blueprint-note"><span aria-hidden="true">↳</span> The code and the thinking behind it.</div>
+    </div>
+  </section>
+
+  <section class="foundation container" aria-labelledby="foundation-title">
+    <div class="section-heading">
+      <p class="eyebrow">A CONNECTED FOUNDATION</p>
+      <h2 id="foundation-title">Build it. Understand it. Operate it.</h2>
+      <p>Keep the pieces that help. Adapt the rest to your application.</p>
+    </div>
+    <div class="feature-grid">
+      <a class="feature-card" href="/docs/default-workflows/#development-and-generation">
+        <span class="card-number">01 / DEVELOP</span>
+        <h3>Start with the groundwork.</h3>
+        <p>HTTP and gRPC interfaces, persistence, background workers, and a repeatable development workflow.</p>
+        <span class="text-link">Explore the workflows <span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="feature-card" href="/docs/documentation/">
+        <span class="card-number">02 / DOCUMENT</span>
+        <h3>Keep the context close.</h3>
+        <p>Working conventions, requirements, and decisions live beside the code, ready for the next person or AI agent.</p>
+        <span class="text-link">Read the documentation model <span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="feature-card" href="/docs/default-workflows/#deployment-and-operation">
+        <span class="card-number">03 / OPERATE</span>
+        <h3>Plan beyond the build.</h3>
+        <p>Use the release workflow and deployment starting points to establish your application's operating process.</p>
+        <span class="text-link">Understand the defaults <span aria-hidden="true">↗</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="explore container" aria-labelledby="explore-title">
+    <div>
+      <p class="eyebrow">FROM STARTING POINT TO YOUR PROJECT</p>
+      <h2 id="explore-title">Make it yours.<br />Keep learning as you go.</h2>
+    </div>
+    <div class="explore-links">
+      <a href="/docs/"><div><h3>The Go42 guide</h3><p>Adoption, workflows, and the details that connect them.</p></div><span aria-hidden="true">↗</span></a>
+      <a href="/blog/"><div><h3>Notes from the build</h3><p>Ideas, experiments, and lessons from developing Go42.</p></div><span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</SiteLayout>

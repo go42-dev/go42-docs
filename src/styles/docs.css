@@ -1,0 +1,18 @@
+@import '@fontsource-variable/manrope';
+
+:root {
+  --sl-font: 'Manrope Variable', system-ui, sans-serif;
+  --sl-color-accent-low: #153c41;
+  --sl-color-accent: #44c7d1;
+  --sl-color-accent-high: #b7f4f5;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #e0f2f1;
+  --sl-color-accent: #007b86;
+  --sl-color-accent-high: #14454b;
+}
+
+.sl-markdown-content { line-height: 1.85; }
+.sl-markdown-content :is(h1, h2, h3, h4) { letter-spacing: -0.025em; }
+h1#_top { letter-spacing: -0.05em; }

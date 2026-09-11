@@ -1,0 +1,32 @@
+---
+import Search from '@astrojs/starlight/components/Search.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import SiteBrand from './SiteBrand.astro';
+---
+
+<div class="docs-header">
+  <SiteBrand />
+  <nav aria-label="Main navigation">
+    <a href="/docs/" aria-current="page">Docs</a>
+    <a href="/blog/">Blog</a>
+  </nav>
+  <div class="search"><Search /></div>
+  <div class="desktop-tools">
+    <a href="https://github.com/go42-dev/go42">GitHub ↗</a>
+    <ThemeSelect />
+  </div>
+</div>
+
+<style>
+  .docs-header { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+  nav, .desktop-tools { display: flex; align-items: center; gap: 1.25rem; }
+  a { color: var(--sl-color-gray-2); text-decoration: none; font-size: 0.875rem; }
+  a:hover, a[aria-current] { color: var(--sl-color-text-accent); }
+  .search { flex: 1; max-width: 30rem; margin-inline: auto; }
+  @media (max-width: 49.99rem) {
+    .docs-header { gap: 1rem; }
+    nav { gap: 1rem; }
+    .desktop-tools { display: none; }
+    .search { flex: 0; margin-inline-start: auto; margin-inline-end: 0; }
+  }
+</style>
