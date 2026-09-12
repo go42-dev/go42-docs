@@ -1,3 +1,3 @@
-# go42.dev
+# go42-docs
 
-The public website for [go42](https://github.com/go42-dev/go42): a landing page, operational documentation, and a blog.
+The public website for [go42.dev](https://go42.dev).
