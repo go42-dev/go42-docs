@@ -6,7 +6,7 @@
 #   https://taskfile.dev/schema.json
 
 # ╭────────────────────----------------──────────╮
-# │                  go42-docs                   │
+# │                  go42 guide                  │
 # ╰─────────────────────----------------─────────╯
 #
 # Before running commands, install the following tools:
