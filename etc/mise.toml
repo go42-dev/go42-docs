@@ -1,0 +1,11 @@
+min_version = "2026.9.1"
+
+[settings]
+lockfile = true
+exec_auto_install = false
+
+[tools]
+task = "3.53.1"
+node = "26.7.0"
+markdownlint-cli2 = "0.23.2"
+vale = "3.18.0"

@@ -10,8 +10,8 @@ Use these guides to understand the starting point and make it your own.
 
 1. [Adopt go42](adopting-go42.md): establish the application's identity and prepare the development environment.
 2. [Learn the default workflows](default-workflows.md): develop, verify, release, and operate the application.
-3. [Understand the documentation boundaries](documentation.md): keep Go42 guidance and application knowledge in their
-   respective homes.
+3. [Understand the documentation model](documentation.md): learn the framework, its design goals, and where application
+   knowledge belongs.
 
 ## A foundation you can change
 

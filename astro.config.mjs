@@ -30,7 +30,7 @@ export default defineConfig({
           items: [
             { label: 'Adopt go42', link: '/docs/adopting-go42/' },
             { label: 'Default workflows', link: '/docs/default-workflows/' },
-            { label: 'Documentation boundaries', link: '/docs/documentation/' },
+            { label: 'Documentation model', link: '/docs/documentation/' },
           ],
         },
       ],

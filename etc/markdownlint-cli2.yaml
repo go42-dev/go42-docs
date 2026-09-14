@@ -1,0 +1,22 @@
+---
+
+config:
+  default: true
+  MD034: false
+
+  # Website metadata supplies a title; keep a visible H1 for readers in a checkout.
+  MD025:
+    front_matter_title: ""
+
+  MD013:
+    line_length: 120
+    heading_line_length: 120
+    code_block_line_length: 120
+    tables: false
+
+globs:
+  - README.md
+  - guides/**/*.md
+  - content/**/*.md
+
+gitignore: true

@@ -1,76 +1,107 @@
 ---
-title: Documentation boundaries
-description: Understand how Go42 guidance and each application's documentation are maintained.
+title: Documentation model
+description: The documentation model supplied by go42, its design goals, and the boundary with application knowledge.
 ---
 
-# Documentation boundaries
+# Documentation model
+
+This guide explains the documentation framework supplied by go42. Its design belongs here; each application records its
+own behavior, requirements, choices, and operating context alongside its code.
+
+Tooling reference: [go42 revision a7a46c6][revision].
 
 ## Ownership and scope
 
-Go42's author solely maintains go42-docs as the source for the public Go42 website, its operational guides, and its blog.
-The guides explain adoption, development, and operation of the blueprint. Users can read them online; this repository is
-outside their application checkout and documentation responsibilities.
+Go42's author maintains this website and its reusable blueprint guidance. Application contributors maintain their own
+documentation; their changes, checks, and publication do not require a go42-docs checkout.
 
-Each application's contributors and AI agents maintain its embedded documents. Application work, documentation checks,
-and publishing do not require a go42-docs checkout or changes to this guide.
-
-| Subject | Owner |
+| Subject | Home |
 | --- | --- |
-| How the go42 release mechanism works | Go42's author, in this guide |
-| How a particular application is released and deployed | Application handbook |
-| Why go42 supplies a capability or default | Go42's author, supported by upstream evidence |
-| What an application needs from that capability | Application requirements |
-| Why an application retained or replaced a default | Application decisions |
-| Current commands, settings, conventions, and exceptions for an application | Application repository |
+| Generic Quick start, blueprint adoption, and reusable workflows | go42-docs |
+| Why go42 supplies a mechanism, capability, or default | go42-docs, with upstream evidence |
+| Application behavior, effective settings, setup deviations, and operating procedures | Application handbook |
+| Required application outcomes and acceptance criteria | Application requirements |
+| Significant application choices and reasons for retaining or replacing defaults | Application decisions |
 
-The guide's author documents mechanisms and defaults that apply to go42. Application contributors document their own
-promises, choices, configuration, and operating instructions, even when they retain a default. Their handbook contains the
-effective local instructions needed for routine development and operation. Links to this guide provide additional
-explanation and identify the applicable version where needed.
+Use the upstream version that applies to the adopted code. Local instructions must account for the application's actual
+settings and environment, including after it diverges from the blueprint.
 
 ## The embedded document model
 
-Each application has three collections:
+The scaffold distinguishes three kinds of application knowledge, with an overview and templates supporting them:
 
-- **Handbook:** how the current application works and how to work with it. Update it alongside implementation changes.
-- **Requirements:** the desired outcomes and behavior, with acceptance criteria and verification evidence. Maintain one
-  living document per capability or concern.
-- **Decisions:** significant choices, alternatives, reasoning, and consequences. Preserve historical reasoning and link
-  a superseded decision to its replacement.
+| Role | Purpose | Source |
+| --- | --- | --- |
+| Overview | Entry point, task navigation, and complete index | `docs/README.md` |
+| Handbook | Current behavior, architecture, and working procedures | `docs/handbook/` |
+| Requirements | Desired outcomes, scope, criteria, and evidence; one living record per capability or concern | `docs/requirements/` |
+| Decisions | Significant choices, alternatives, reasoning, and consequences | `docs/decisions/` |
+| Templates | Authoring resources, presented separately from application records | `docs/templates/` |
 
-The source files remain readable in a checkout and can be compiled into the application's own Pages site. Authoring
-templates are presented separately from actual records. API reference is generated from its contracts.
+The [publication tooling][assembler] requires explicit `id`, `title`, and `collection` metadata. Record status expresses
+agreement or lifecycle; acceptance and delivery are separate facts. Related IDs and decision replacement links connect
+records, while authored IDs remain stable across ordinary moves and title changes. Source paths and published URLs need
+their own compatibility checks when content moves.
+
+Templates can show sample record fields without becoming application intent. When copying one, authors replace its ID,
+collection, and placeholder metadata according to the application's local policy.
 
 ## Why go42 supplies these defaults
 
-The earlier documentation layout contained an empty core page and broad BRD and ADR templates. Their responsibilities
-and update rules were unclear, and publishing treated templates as project records while excluding local conventions.
-The current defaults distinguish present behavior, intended outcomes, and decision history, with small templates and
-explicit metadata for people and AI.
+A shared upstream guide explains the blueprint but cannot establish an application's promises, owners, or deployment
+settings. Copying it wholesale creates competing explanations to maintain. Keeping application knowledge with the code
+lets contributors update facts and procedures with the behavior they describe, while linking to reusable explanations.
 
-The blueprint supplies a local policy, templates, and checks so each application can maintain documentation that matches
-its code revision. Go42's design explanation stays in this guide. Local records describe the application's own
-requirements and choices; the initial documentation requirement and decision are drafts for its adoption review.
+The [original proposed decision][decision] records these alternatives. The [original draft requirement][requirement]
+records the framework's intended coverage. Preserve those records as design provenance: their `proposed` and `draft`
+statuses at the referenced revision do not establish acceptance for an adopted application.
+
+### Framework goals
+
+These goals summarize the draft requirement. Application acceptance and delivery evidence are recorded locally.
+
+| Goal | Verification responsibility |
+| --- | --- |
+| Make knowledge discoverable | A complete [index][index] separates collections, orders records, and presents templates separately. |
+| Distinguish intent, implementation, and history | Metadata checks enforce valid statuses and replacement links; maintainer agreement establishes acceptance. |
+| Maintain knowledge with changes | Contributors review the owning documents alongside implementation and explain documentation impact. |
+| Publish the authored sources | [Assembler checks and tests][tests] validate metadata, index coverage/order, and local file links; the site build checks rendered links and anchors. |
+| Provide usable operating instructions | Application review establishes purpose, ownership, environment, prerequisites, effects on state, expected results, and recovery steps. |
+| Keep application documentation independent | The [publishing workflow][publishing] uses local sources, policy, templates, and tooling without importing go42-docs. |
+| Support feature work and diagnosis | Source, contract, configuration, test, and runbook links let readers trace a change or symptom and identify useful checks. |
+
+A successful documentation build proves structural checks passed. Completeness, application behavior, and the scope of
+verification evidence still need review and relevant runtime checks. Record unknowns and delivery gaps explicitly.
 
 ## Local policy and inherited defaults
 
-The application carries a small documentation policy, templates, and conventions so people and AI can work from its
-checkout. These files are local contracts, inherited from the blueprint and reviewed during adoption or an upstream
-upgrade. They define the metadata, statuses, checks, and maintenance process used by that code revision.
+Each application keeps its policy, conventions, and usable templates with its code. They define the metadata, statuses,
+checks, and maintenance process actually in force there. Review those contracts when adopting or upgrading go42.
 
-Start at the application's `docs/README.md`, its documentation entry point and published homepage. It links the application
-profile, `docs/handbook/conventions.md`, the documentation policy, and the document collections. This guide explains the
-go42 defaults; the local policy records the rules actually in force for the application. The usable templates remain with
-the code and its validation tooling.
+Start at the application's `docs/README.md`, then its profile, conventions, and documentation policy. Use the
+[scaffold policy][policy] as a reference for the pinned revision; an adopted application's own policy takes precedence
+for its contributors. Keep application-specific instructions and exceptions in their owning local documents.
 
 ## Updating documentation
 
-Application contributors update affected documentation alongside implementation changes in their application repository.
-They can use this guide as a reference without maintaining it.
+Application contributors update their handbook and affected records with implementation changes. Preserve accepted
+decision reasoning; record a reversal in a new decision and link the superseded record to its replacement. Distinguish
+observed results, inspected source, and historical inference in the evidence.
 
-The go42 author updates this operational guide when the blueprint's mechanisms or defaults change. Those updates are
-separate from application contributions and should identify the code revision they describe.
+Go42's author updates this guide when the documentation framework changes, with references to the relevant source
+revision. Changes to shared mechanisms also need a review of their global explanations.
 
-Acceptance of a requirement or decision and implementation progress are separate facts. Record unknowns and delivery gaps
-explicitly. Validate commands and claims against their sources. Keep original reasoning and distinguish documented
-evidence from retrospective inference.
+Tools assist that review. With [go42x v0.24.0][go42x], `docs_get` reads documents by authored ID and `docs_impact` finds
+linked documentation within the selected project. Missing links still require judgment, and external links do not
+provide automatic impact analysis across repositories. Keep durable knowledge in the authored sources used by people,
+publishing, and retrieval.
+
+[revision]: https://github.com/go42-dev/go42/tree/a7a46c664c08d5acfc8b0c4f398f4ccac42635be
+[assembler]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/pages/assemble.mjs
+[tests]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/pages/assemble.test.mjs
+[index]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/docs/README.md
+[policy]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/docs/handbook/documentation.md
+[requirement]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/docs/requirements/001-documentation.md
+[decision]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/docs/decisions/001-documentation-model.md
+[publishing]: https://github.com/go42-dev/go42/blob/a7a46c664c08d5acfc8b0c4f398f4ccac42635be/.github/workflows/210-github-pages.yaml
+[go42x]: https://github.com/go42-dev/go42x/tree/v0.24.0

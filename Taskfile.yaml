@@ -1,0 +1,167 @@
+---
+
+# Reference:
+#   https://taskfile.dev/docs/reference/schema
+# JSON schema:
+#   https://taskfile.dev/schema.json
+
+# ╭────────────────────----------------──────────╮
+# │                  go42-docs                   │
+# ╰─────────────────────----------------─────────╯
+#
+# Before running commands, install the following tools:
+# - mise @see https://mise.jdx.dev/
+# - task @see https://taskfile.dev/
+#
+# Run task setup to install pinned tools, Vale styles, and website dependencies.
+# This file can be run manually, from CI, by an IDE, or invoked by AI.
+
+version: '3'
+
+set:
+  - errexit
+  - pipefail
+
+vars:
+  # Task's env cannot override an inherited PATH; resolve pinned tools explicitly.
+  TOOLS_BIN: '{{.ROOT_DIR}}/.tools/shims'
+
+# Keep project tools, caches, and Task state inside the ignored .tools/ directory.
+env:
+  MISE_DEFAULT_CONFIG_FILENAME: etc/mise.toml
+  MISE_DATA_DIR: '{{.ROOT_DIR}}/.tools'
+  MISE_CACHE_DIR: '{{.ROOT_DIR}}/.tools/cache'
+  MISE_STATE_DIR: '{{.ROOT_DIR}}/.tools/state'
+  MISE_EXEC_AUTO_INSTALL: 'false'
+  TASK_TEMP_DIR: '{{.ROOT_DIR}}/.tools/task'
+
+tasks:
+
+  ## help | list available tasks
+  help:
+    desc: List available tasks in Taskfile order
+    aliases: [default]
+    cmds:
+      - task --list --sort none
+
+  ## tool | run a command with the project tools
+  tool:
+    desc: Run a command with the project tools
+    summary: 'Usage: task tool -- COMMAND [ARGS...]'
+    interactive: true
+    silent: true
+    preconditions:
+      - sh: 'test -n {{.CLI_ARGS | shellQuote}}'
+        msg: 'Usage: task tool -- COMMAND [ARGS...]'
+    cmds:
+      - 'mise exec -- {{.CLI_ARGS}}'
+
+  ## setup | install dependencies
+  setup:
+    desc: Install pinned tools, Vale styles, and website dependencies
+    cmds:
+      - task: setup-lint
+      - task: setup-build
+
+  ## setup-lint | install dependencies for documentation linting
+  setup-lint:
+    desc: Install pinned lint tools and Vale styles
+    cmds:
+      - mise install --locked task node markdownlint-cli2 vale
+      - '"{{.TOOLS_BIN}}/vale" --config etc/vale.ini sync'
+
+  ## setup-build | install dependencies for the website build
+  setup-build:
+    desc: Install pinned build tools and website dependencies
+    cmds:
+      - mise install --locked task node
+      - '"{{.TOOLS_BIN}}/npm" ci --no-audit --no-fund'
+
+  # ╭────────────────────----------------──────────╮
+  # │                 Development                  │
+  # ╰─────────────────────----------------─────────╯
+
+  ## dev | start the website development server
+  dev:
+    desc: Start the website development server
+    interactive: true
+    cmds:
+      - '"{{.TOOLS_BIN}}/npm" run dev -- {{.CLI_ARGS}}'
+
+  ## build | check Astro types and build the production website
+  build:
+    desc: Check Astro types and build the production website
+    cmds:
+      - '"{{.TOOLS_BIN}}/npm" run check'
+
+  ## preview | build and preview the website locally
+  preview:
+    desc: Build and preview the website locally
+    aliases: [docs-serve]
+    interactive: true
+    cmds:
+      - task: build
+      - '"{{.TOOLS_BIN}}/npm" run preview -- {{.CLI_ARGS}}'
+
+  # ╭────────────────────----------------──────────╮
+  # │                   Linters                    │
+  # ╰─────────────────────----------------─────────╯
+
+  ## lint | run Markdown and prose linters
+  lint:
+    desc: Lint Markdown and prose
+    cmds:
+      - task: lint:markdown
+        vars:
+          CLI_ARGS: ''
+      - task: lint:prose
+        vars:
+          CLI_ARGS: ''
+
+  ## lint:markdown | check Markdown formatting
+  lint:markdown:
+    desc: Lint Markdown, or explicit files (read only)
+    summary: 'Usage: task lint:markdown [-- FILE.md ...]; defaults to README.md, guides/, and content/.'
+    preconditions:
+      - &file_paths
+        sh: |
+          set -- {{.CLI_ARGS}}
+          for file do
+            case "$file" in
+              -*|!*|*\**|*\?*|*\[*|*\]*|*\{*|*\}*) printf 'Expected a literal file path: %s\n' "$file" >&2; exit 2 ;;
+            esac
+            [ -f "$file" ] || { printf 'Expected an existing file: %s\n' "$file" >&2; exit 2; }
+          done
+        msg: Pass explicit existing file paths after --.
+    cmds:
+      - |
+        set -- {{.CLI_ARGS}}
+        if [ "$#" -eq 0 ]; then
+          "{{.TOOLS_BIN}}/markdownlint-cli2" --config etc/markdownlint-cli2.yaml
+        else
+          "{{.TOOLS_BIN}}/markdownlint-cli2" --config etc/markdownlint-cli2.yaml --no-globs "$@"
+        fi
+
+  ## lint:prose | check prose with Vale
+  lint:prose:
+    desc: Check prose, or explicit files (read only)
+    summary: 'Usage: task lint:prose [-- FILE.md ...]; defaults to README.md, guides/, and content/.'
+    preconditions:
+      - *file_paths
+    cmds:
+      - |
+        set -- {{.CLI_ARGS}}
+        if [ "$#" -eq 0 ]; then set -- README.md guides/ content/; fi
+        "{{.TOOLS_BIN}}/vale" --config etc/vale.ini "$@"
+
+  # ╭────────────────────----------------──────────╮
+  # │                Documentation                 │
+  # ╰─────────────────────----------------─────────╯
+
+  ## docs-check | validate documentation and build the website
+  docs-check:
+    desc: Lint documentation, check Astro types, and build the website
+    aliases: [check]
+    cmds:
+      - task: lint
+      - task: build
