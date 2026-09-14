@@ -1,6 +1,10 @@
-node_modules/
-dist/
-.astro/
-.tools/
+# os
 .DS_Store
-*.log
+
+# ide
+.idea/
+.vscode
+
+# operations
+.build/
+.tools/

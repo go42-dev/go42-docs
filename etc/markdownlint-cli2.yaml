@@ -16,7 +16,7 @@ config:
 
 globs:
   - README.md
-  - guides/**/*.md
-  - content/**/*.md
+  - docs/**/*.md
+  - blog/**/*.md
 
 gitignore: true

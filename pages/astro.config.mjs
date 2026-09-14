@@ -6,6 +6,7 @@ import guideMarkdown from './src/plugins/guide-markdown.mjs';
 export default defineConfig({
   site: 'https://go42.dev',
   output: 'static',
+  outDir: '../.build/dist',
   trailingSlash: 'always',
   markdown: {
     processor: unified({ remarkPlugins: [guideMarkdown] }),
@@ -19,7 +20,8 @@ export default defineConfig({
       disable404Route: true,
       customCss: ['./src/styles/docs.css'],
       components: { Header: './src/components/DocsHeader.astro' },
-      editLink: { baseUrl: 'https://github.com/go42-dev/go42-docs/edit/master/' },
+      // Content file paths, including ../docs/, are relative to the Astro project.
+      editLink: { baseUrl: 'https://github.com/go42-dev/go42-docs/edit/master/pages/' },
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/go42-dev/go42' },
       ],

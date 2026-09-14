@@ -34,7 +34,7 @@ jobs:
           version: '2026.9.1'
           install_args: --locked task
       - name: Set up lint dependencies
-        run: task setup-lint
+        run: task setup:lint
       - name: Lint Markdown and prose
         run: task lint
 
@@ -60,14 +60,14 @@ jobs:
           version: '2026.9.1'
           install_args: --locked task
       - name: Set up build dependencies
-        run: task setup-build
+        run: task setup:build
       - name: Check and build the website
         run: task build
       - name: Upload the website
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: dist
+          path: .build/dist
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'

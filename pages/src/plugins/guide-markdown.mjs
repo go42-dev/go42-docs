@@ -2,7 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { visit } from 'unist-util-visit';
 
-const guidesRoot = fileURLToPath(new URL('../../guides/', import.meta.url));
+const guidesRoot = fileURLToPath(new URL('../../../docs/', import.meta.url));
 
 // Keep guide headings and relative Markdown links readable in GitHub and on the site.
 export default function guideMarkdown() {

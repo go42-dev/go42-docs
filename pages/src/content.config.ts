@@ -7,7 +7,7 @@ import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 export const collections = {
   docs: defineCollection({
     loader: glob({
-      base: './guides',
+      base: '../docs',
       pattern: '**/[^_]*.md',
       generateId: ({ entry }) => `docs/${entry.replace(/\.md$/, '')}`,
     }),
@@ -15,7 +15,7 @@ export const collections = {
   }),
   i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
   blog: defineCollection({
-    loader: glob({ base: './content/blog', pattern: '**/[^_]*.md' }),
+    loader: glob({ base: '../blog', pattern: '**/[^_]*.md' }),
     schema: z.object({
       title: z.string(),
       description: z.string(),
