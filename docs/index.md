@@ -1,7 +1,7 @@
 ---
 id: overview
 title: The Go42 guide
-description: An overview of the go42 service blueprint and its documentation model.
+description: An overview of go42 and how to write useful project documentation.
 ---
 
 Go42 is a Go service blueprint that brings application code, development workflows, and project documentation together.
@@ -9,8 +9,8 @@ Use these guides to understand the starting point and make it your own.
 
 ## Start here
 
-[Understand the documentation model](documentation.md): learn the framework, its design goals, and where application
-knowledge belongs.
+[Write useful documentation](documentation.md): learn what belongs in each project and how to keep it clear and up to
+date.
 
 ## A foundation you can change
 
@@ -22,7 +22,7 @@ your application's own requirements, decisions, and operating context in its emb
 
 ## About this guide
 
-This site provides a blueprint overview and its documentation model. Use the application's local handbook for its
-effective procedures.
+This site introduces the blueprint and explains how to write project documentation. Use your application's handbook
+for instructions that match its code and settings.
 
 For project ideas and development notes, visit the [blog](https://go42.dev/blog/).
