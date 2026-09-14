@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check && astro build",
+    "check": "npm run test && astro check && npm run build",
+    "test": "node --test check-links.test.mjs",
     "build": "astro build",
     "preview": "astro preview"
   },
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "parse5": "7.3.0",
     "typescript": "6.0.3"
   }
 }

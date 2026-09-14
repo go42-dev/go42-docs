@@ -1,6 +1,7 @@
 ---
+id: overview
 title: The Go42 guide
-description: A starting point for adopting, developing, and operating your next Go service.
+description: An overview of the go42 service blueprint and its documentation model.
 ---
 
 Go42 is a Go service blueprint that brings application code, development workflows, and project documentation together.
@@ -8,10 +9,8 @@ Use these guides to understand the starting point and make it your own.
 
 ## Start here
 
-1. [Adopt go42](adopting-go42.md): establish the application's identity and prepare the development environment.
-2. [Learn the default workflows](default-workflows.md): develop, verify, release, and operate the application.
-3. [Understand the documentation model](documentation.md): learn the framework, its design goals, and where application
-   knowledge belongs.
+[Understand the documentation model](documentation.md): learn the framework, its design goals, and where application
+knowledge belongs.
 
 ## A foundation you can change
 
@@ -23,7 +22,7 @@ your application's own requirements, decisions, and operating context in its emb
 
 ## About this guide
 
-These initial guides cover adoption, the default workflows, and documentation ownership. Detailed explanations of
-individual subsystems will be added as they are documented and verified against the blueprint.
+This site provides a blueprint overview and its documentation model. Use the application's local handbook for its
+effective procedures.
 
 For project ideas and development notes, visit the [blog](https://go42.dev/blog/).

@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import starlight from '@astrojs/starlight';
 import guideMarkdown from './src/plugins/guide-markdown.mjs';
+import checkLinks from './check-links.mjs';
 
 export default defineConfig({
   site: 'https://go42.dev',
@@ -27,15 +28,9 @@ export default defineConfig({
       ],
       sidebar: [
         { label: 'Overview', link: '/docs/' },
-        {
-          label: 'Working with Go42',
-          items: [
-            { label: 'Adopt go42', link: '/docs/adopting-go42/' },
-            { label: 'Default workflows', link: '/docs/default-workflows/' },
-            { label: 'Documentation model', link: '/docs/documentation/' },
-          ],
-        },
+        { label: 'Documentation', link: '/docs/documentation/' },
       ],
     }),
+    checkLinks(),
   ],
 });

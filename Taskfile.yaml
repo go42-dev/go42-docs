@@ -60,21 +60,8 @@ tasks:
   setup:
     desc: Install pinned tools, Vale styles, and website dependencies
     cmds:
-      - task: setup:lint
-      - task: setup:build
-
-  ## setup:lint | install dependencies for documentation linting
-  setup:lint:
-    desc: Install pinned lint tools and Vale styles
-    cmds:
       - mise install --locked task node markdownlint-cli2 vale
       - '"{{.TOOLS_BIN}}/vale" --config etc/vale.ini sync'
-
-  ## setup:build | install dependencies for the website build
-  setup:build:
-    desc: Install pinned build tools and website dependencies
-    cmds:
-      - mise install --locked task node
       - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" ci --no-audit --no-fund'
 
   # ╭────────────────────----------------──────────╮
@@ -88,11 +75,11 @@ tasks:
     cmds:
       - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run dev -- {{.CLI_ARGS}}'
 
-  ## build | check Astro types and build the production website
+  ## build | build the website
   build:
-    desc: Check Astro types and build the production website
+    desc: Build the production website and validate internal links
     cmds:
-      - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run check'
+      - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run build'
 
   ## preview | build and preview the website locally
   preview:
@@ -102,6 +89,18 @@ tasks:
     cmds:
       - task: build
       - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run preview -- {{.CLI_ARGS}}'
+
+  ## test | test documentation tooling
+  test:
+    desc: Test internal link and anchor validation
+    cmds:
+      - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run test'
+
+  ## check | test tooling, check Astro types, and build the website
+  check:
+    desc: Test tooling, check Astro types, build, and validate internal links
+    cmds:
+      - '"{{.TOOLS_BIN}}/npm" --prefix "{{.ROOT_DIR}}/pages" run check'
 
   # ╭────────────────────----------------──────────╮
   # │                   Linters                    │
@@ -153,15 +152,3 @@ tasks:
         set -- {{.CLI_ARGS}}
         if [ "$#" -eq 0 ]; then set -- README.md docs/ blog/; fi
         "{{.TOOLS_BIN}}/vale" --config etc/vale.ini "$@"
-
-  # ╭────────────────────----------------──────────╮
-  # │                Documentation                 │
-  # ╰─────────────────────----------------─────────╯
-
-  ## docs:check | validate documentation and build the website
-  docs:check:
-    desc: Lint documentation, check Astro types, and build the website
-    aliases: [check]
-    cmds:
-      - task: lint
-      - task: build

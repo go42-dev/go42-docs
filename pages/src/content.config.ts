@@ -11,7 +11,12 @@ export const collections = {
       pattern: '**/[^_]*.md',
       generateId: ({ entry }) => `docs/${entry.replace(/\.md$/, '')}`,
     }),
-    schema: docsSchema({ extend: z.object({ description: z.string().min(1) }) }),
+    schema: docsSchema({
+      extend: z.object({
+        id: z.string().min(1),
+        description: z.string().min(1),
+      }),
+    }),
   }),
   i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
   blog: defineCollection({
